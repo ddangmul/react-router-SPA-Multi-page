@@ -22,10 +22,10 @@ const router = createBrowserRouter([
     element: <RootLayout />, // pages 컴포넌트들의 래퍼 역할
     errorElement: <ErrorPage />,
     children: [
-      { path: "/", element: <HomePage /> },
-      { path: "/products", element: <ProductsPage /> },
+      { path: "", element: <HomePage /> },
+      { path: "products", element: <ProductsPage /> },
       // : - 역동적 경로 파라미터
-      { path: "/products/:productId", element: <ProductDatail /> },
+      { path: "products/:productId", element: <ProductDatail /> },
     ],
   },
 ]);
