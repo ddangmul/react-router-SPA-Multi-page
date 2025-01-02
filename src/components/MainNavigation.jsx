@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+// className이 화살표 함수. 앵커 태그에 추가되어야 하는 css클래스명 리턴
 
 import classes from "./MainNavigation.module.css";
 
@@ -8,10 +9,28 @@ export default function MainNavigation() {
       <nav>
         <ul className={classes.list}>
           <li>
-            <Link to="/">Home</Link>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? classes.active : undefined
+              }
+              // style={({ isActive }) => ({
+              //   textAlign: isActive ? "center" : "left",
+              // })}
+              end // url이 /로만 끝나야 활성화
+            >
+              Home
+            </NavLink>
           </li>
           <li>
-            <Link to="/products">Products</Link>
+            <NavLink
+              to="/products"
+              className={({ isActive }) =>
+                isActive ? classes.active : undefined
+              }
+            >
+              Products
+            </NavLink>
           </li>
         </ul>
       </nav>
