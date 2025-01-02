@@ -4,6 +4,7 @@ import HomePage from "./pages/Home";
 import ProductsPage from "./pages/Products";
 import RootLayout from "./pages/Root";
 import ErrorPage from "./pages/Error";
+import ProductDatail from "./pages/ProductDetail";
 
 // const routeDefinitions = createRoutesFromElements(
 //   <Route>
@@ -23,6 +24,8 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       { path: "/products", element: <ProductsPage /> },
+      // : - 역동적 경로 파라미터
+      { path: "/products/:productId", element: <ProductDatail /> },
     ],
   },
 ]);
