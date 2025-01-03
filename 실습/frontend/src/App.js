@@ -7,11 +7,13 @@ import NewEventPage from "./pages/NewEventPage";
 import EditEventPage from "./pages/EditEventPage";
 import RootLayout from "./pages/root";
 import EventsRootLayout from "./pages/EventsRoot";
+import ErrorPage from "./pages/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <ErrorPage />, // 하위 라우트 어디에서든 오류가 발생하면 ErrorPage가 실행
     children: [
       { index: true, element: <HomePage /> },
       {
