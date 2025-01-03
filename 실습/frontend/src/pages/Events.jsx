@@ -27,7 +27,10 @@ export async function loader() {
 
   if (!response.ok) {
     // return { isError: true, message: "Could not fetch events." };
-    throw { message: "Could not getch events." }; // 가장 근접한 오류 요소를 발생
+    // throw { message: "Could not getch events." }; // 가장 근접한 오류 요소를 발생
+    throw new Response(JSON.stringify({ message: "Could not fetch events." }), {
+      status: 500, // status 속성 추가 위해 Response 객체 사용
+    });
   } else {
     return response;
   }
