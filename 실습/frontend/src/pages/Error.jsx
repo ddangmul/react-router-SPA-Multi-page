@@ -10,7 +10,7 @@ function ErrorPage() {
   let message = "Something went wrong!";
 
   if (error.status === 500) {
-    message = JSON.parse(error.data).message;
+    message = JSON.stringify(error.data).message; // 리액트 라우터가 error.data 자동 파싱
   }
 
   if (error.status === 404) {
