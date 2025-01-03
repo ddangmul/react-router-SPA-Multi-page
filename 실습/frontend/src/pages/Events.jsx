@@ -15,13 +15,14 @@ function EventsPage() {
 
 export default EventsPage;
 
+// loader 코드는 클라이언트측 코드. 서버가 아닌 브라우저에서 실행됨
 export async function loader() {
+  // 응답 객체를 loader가 반환
   const response = await fetch("http://localhost:8080/events");
 
   if (!response.ok) {
     // ...
   } else {
-    const resData = await response.json();
-    return { events: resData.events }; // 데이터 반환 형식 주의
+    return response;
   }
 }
