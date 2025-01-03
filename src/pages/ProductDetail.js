@@ -7,7 +7,7 @@ export default function ProductDatail() {
     <main>
       <h1> Product Detail</h1>
       <p>{params.productId}</p>
-      <Link to=".." relative="path"> 
+      <Link to=".." relative="path">
         Back
       </Link>
     </main>

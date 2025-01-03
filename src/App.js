@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     element: <RootLayout />, // pages 컴포넌트들의 래퍼 역할
     errorElement: <ErrorPage />,
     children: [
-      { path: "", element: <HomePage /> },
+      { index: true, element: <HomePage /> }, // index - 부모 라우트가 활성인 경우 로딩되어야 하는 기본 라우트
       { path: "products", element: <ProductsPage /> },
       // : - 역동적 경로 파라미터
       { path: "products/:productId", element: <ProductDatail /> },
