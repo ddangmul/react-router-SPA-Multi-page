@@ -26,6 +26,10 @@ export async function action({ request, params }) {
     body: JSON.stringify(eventData),
   });
 
+  if (response.status === 422) {
+    return response; //백엔드에서 되돌려받은 response를 리턴
+  }
+
   if (!response.ok) {
     throw new Response(JSON.stringify({ message: "Could not save event." }), {
       status: 500,

@@ -1,8 +1,14 @@
-import { useNavigate, Form, useNavigation } from "react-router-dom";
+import {
+  useNavigate,
+  Form,
+  useNavigation,
+  useActionData,
+} from "react-router-dom";
 
 import classes from "./EventForm.module.css";
 
 function EventForm({ method, event }) {
+  const data = useActionData(); // action이 리턴한 데이터
   const navigate = useNavigate();
   const navigation = useNavigation(); // 제출 상태 이용
 
@@ -18,6 +24,13 @@ function EventForm({ method, event }) {
       // action="/any-other-path" action을 트리거하려는 다른 라우트 경로 설정 가능
       className={classes.form}
     >
+      {data && data.errors && (
+        <ul>
+          {Object.values(data.errors).map((err) => (
+            <li key={err}>{err}</li>
+          ))}
+        </ul>
+      )}
       <p>
         <label htmlFor="title">Title</label>
         <input
