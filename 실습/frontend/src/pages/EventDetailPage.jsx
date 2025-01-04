@@ -4,8 +4,6 @@ import EventItem from "../components/EventItem";
 export default function EventDetailPage() {
   const data = useRouteLoaderData("event-detail"); // 인수: 라우트에 지정한 id
 
-  console.log(data);
-
   return <EventItem event={data.event} />;
 }
 
