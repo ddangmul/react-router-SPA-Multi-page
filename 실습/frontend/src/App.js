@@ -27,22 +27,27 @@ const router = createBrowserRouter([
             element: <EventsPage />,
             loader: eventsLoader,
           },
-          // {
-          //   path: ":eventId",
-          //   loader: eventDetailLoader, // 2개 자식 라우트가 데이터를 사용할 수 있도록 -> !! 래퍼 라우트에만 loader 작성 시 Eventdetail에서 useLoaderData가 undefined 반환 !!
-          //   children: [
           {
             path: ":eventId",
-            element: <EventDetailPage />,
+            id: "event-detail",
             loader: eventDetailLoader,
+            // 자식 라우트가 loader로직&데이터를 재사용할 수 있도록 래퍼 라우트에만 loader 작성
+            // -> 에러: Eventdetail에서 useLoaderData가 undefined 반환 / 자식 라우트의 자식 컴포넌트에서 래퍼 라우트 loader 데이터를 사용 못 함
+            // -> 해결: useLoaderData 대신 useRouteLoaderData 사용
+
+            children: [
+              {
+                index: true,
+                element: <EventDetailPage />,
+                // loader: eventDetailLoader,
+              },
+              {
+                path: "edit",
+                element: <EditEventPage />,
+                // loader: eventDetailLoader,
+              },
+            ],
           },
-          {
-            path: ":eventId/edit",
-            element: <EditEventPage />,
-            loader: eventDetailLoader,
-          },
-          // ],
-          // },
           { path: "new", element: <NewEventPage /> },
         ],
       },
