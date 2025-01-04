@@ -4,13 +4,23 @@ import EventItem from "../components/EventItem";
 export default function EventDetailPage() {
   const data = useLoaderData();
 
+  console.log(data);
+
+  // if (!data) {
+  //   return <p>로딩 중...</p>; // 로딩 중 상태 처리
+  // }
+
+  // if (!data || !data.event) {
+  //   return <p>에러: 이벤트 정보를 찾을 수 없습니다.</p>;
+  // }
+
   return <EventItem event={data.event} />;
 }
 
 export async function loader({ request, params }) {
-  const id = params.eventId;
+  const { eventId } = params;
 
-  const response = await fetch("http://localhost:8080/events/" + id);
+  const response = await fetch(`http://localhost:8080/events/${eventId}`);
 
   if (!response.ok) {
     throw new Response(
@@ -22,6 +32,8 @@ export async function loader({ request, params }) {
       }
     );
   } else {
-    return response;
+    const eventData = await response.json();
+    console.log("API 응답: ", eventData);
+    return eventData;
   }
 }

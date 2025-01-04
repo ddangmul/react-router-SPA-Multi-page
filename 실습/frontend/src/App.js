@@ -27,13 +27,23 @@ const router = createBrowserRouter([
             element: <EventsPage />,
             loader: eventsLoader,
           },
+          // {
+          //   path: ":eventId",
+          //   loader: eventDetailLoader, // 2개 자식 라우트가 데이터를 사용할 수 있도록 -> !! 래퍼 라우트에만 loader 작성 시 Eventdetail에서 useLoaderData가 undefined 반환 !!
+          //   children: [
           {
             path: ":eventId",
             element: <EventDetailPage />,
             loader: eventDetailLoader,
           },
+          {
+            path: ":eventId/edit",
+            element: <EditEventPage />,
+            loader: eventDetailLoader,
+          },
+          // ],
+          // },
           { path: "new", element: <NewEventPage /> },
-          { path: ":eventId/edit", element: <EditEventPage /> },
         ],
       },
     ],
@@ -41,7 +51,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router}></RouterProvider>;
+  return <RouterProvider router={router} />;
 }
 
 export default App;
