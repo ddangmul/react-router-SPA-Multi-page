@@ -3,6 +3,7 @@ import {
   Form,
   useNavigation,
   useActionData,
+  redirect,
 } from "react-router-dom";
 
 import classes from "./EventForm.module.css";
@@ -19,11 +20,7 @@ function EventForm({ method, event }) {
   }
 
   return (
-    <Form
-      method="post"
-      // action="/any-other-path" action을 트리거하려는 다른 라우트 경로 설정 가능
-      className={classes.form}
-    >
+    <Form method={method} className={classes.form}>
       {data && data.errors && (
         <ul>
           {Object.values(data.errors).map((err) => (
@@ -84,3 +81,44 @@ function EventForm({ method, event }) {
 }
 
 export default EventForm;
+
+export async function action({ request, params }) {
+  const method = request.method;
+  const data = await request.formData();
+
+  const eventData = {
+    title: data.get("title"), // 폼 요소 name명과 일치
+    image: data.get("image"),
+    date: data.get("date"),
+    description: data.get("description"),
+  };
+
+  let url = "http://localhost:8080/events";
+
+  if (method === "PATCH") {
+    // request에는 모두 대문자로 저장
+    // evetn 편집
+    const eventId = params.eventId;
+    url = `http://localhost:8080/events/${eventId}`;
+  }
+
+  const response = await fetch(url, {
+    method: method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(eventData),
+  });
+
+  if (response.status === 422) {
+    return response; //백엔드에서 되돌려받은 response를 리턴
+  }
+
+  if (!response.ok) {
+    throw new Response(JSON.stringify({ message: "Could not save event." }), {
+      status: 500,
+    });
+  }
+
+  return redirect("/events"); // 사용자를 다른 페이지로 리디렉션
+}
