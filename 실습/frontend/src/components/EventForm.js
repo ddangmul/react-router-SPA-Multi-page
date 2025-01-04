@@ -10,7 +10,9 @@ function EventForm({ method, event }) {
   }
 
   return (
-    <Form method="post" className={classes.form}>
+    <Form method="post" 
+    // action="/any-other-path" action을 트리거하려는 다른 라우트 경로 설정 가능
+    className={classes.form}>
       <p>
         <label htmlFor="title">Title</label>
         <input
